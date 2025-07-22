@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Leak</title>
+</head>
+<body>
+    <h1>Faça o cadastro</h1>
+    
+    <!-- Forms para recolher as informações de cadastro  -->
+    <form action="php/cadastro.php" method="POST">
+
+        <!-- Nome do usuário -->
+        <input type="text" name="nome_usuario" id="nome_usuario" required>
+        
+        <!-- Email do usuário -->
+        <input type="email" name="email_usuario" id="email_usuario" required>
+
+        <!-- Senha duas vezes para confirmar a senha com o usuário -->
+        <input type="password" name="senha_usuario" id="senha_usuario" required>
+        <input type="password" name="senha_usuario" id=" senha_usuario_confirmar" required>
+    </form>
+</body>
+</html>
