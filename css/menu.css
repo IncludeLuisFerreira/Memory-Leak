@@ -1,0 +1,228 @@
+@font-face {
+    font-family: 'ReachTheEnd';
+    src: url('../font/Reach-the-End/ReachTheEnd.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body e centralização */
+html, body {
+    height: 100%;
+    font-family: 'ReachTheEnd', serif;
+    background-image: url('../img/bkg.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #f0e6d2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container central com decoração Art Deco */
+.container {
+    position: relative;
+    max-width: 720px;
+    width: 100%;
+    background: rgba(40, 18, 18, 0.9);
+    border: 6px double #c9a441; /* borda dupla dourada */
+    border-radius: 20px;
+    padding: 50px 60px;
+    box-shadow:
+        inset 0 0 20px #7a601a,
+        0 0 30px rgba(201, 164, 65, 0.6);
+    text-align: center;
+    overflow: visible;
+}
+
+/* Moldura interna detalhada */
+.container::before,
+.container::after {
+    content: "";
+    position: absolute;
+    border: 2px solid #c9a441;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    border-radius: 24px;
+    top: -20px;
+    left: -20px;
+    pointer-events: none;
+    box-shadow:
+        0 0 15px #bba14a,
+        inset 0 0 10px #7a601a;
+    z-index: -1;
+}
+
+.container::after {
+    border-style: dotted;
+    width: calc(100% + 70px);
+    height: calc(100% + 70px);
+    top: -35px;
+    left: -35px;
+    border-radius: 30px;
+    opacity: 0.6;
+}
+
+/* Cantos decorativos geométricos */
+.container > .corner {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 4px solid #c9a441;
+    border-radius: 15px;
+}
+
+.container > .corner.top-left {
+    top: -30px;
+    left: -30px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.container > .corner.top-right {
+    top: -30px;
+    right: -30px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.container > .corner.bottom-left {
+    bottom: -30px;
+    left: -30px;
+    border-right: none;
+    border-top: none;
+}
+
+.container > .corner.bottom-right {
+    bottom: -30px;
+    right: -30px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Título com tipografia Art Deco e relevo */
+.title {
+    font-family: 'ReachTheEnd', serif;
+    font-size: 4rem;
+    color: #d4af37;
+    letter-spacing: 6px;
+    margin-bottom: 50px;
+    text-shadow:
+        1px 1px 0 #7a601a,
+        2px 2px 0 #b3962a,
+        3px 3px 0 #c9a441;
+}
+
+/* Botões estilo Art Deco detalhado */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+.btn {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: #d4af37;
+    background: transparent;
+    padding: 18px 60px;
+    border: 3px solid #d4af37;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow:
+        inset 0 0 8px #b3962a,
+        0 0 15px rgba(212, 175, 65, 0.7);
+}
+
+.btn::before,
+.btn::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #d4af37;
+    border-radius: 3px;
+    top: 6px;
+}
+
+.btn::before {
+    left: 6px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.btn::after {
+    right: 6px;
+    bottom: 6px;
+    border-left: none;
+    border-top: none;
+}
+
+.btn:hover {
+    background-color: #d4af37;
+    color: #281212;
+    box-shadow:
+        inset 0 0 10px #b3962a,
+        0 0 25px rgba(212, 175, 65, 1);
+}
+
+/* Placar de ranking - caixa com borda dupla e relevo */
+.ranking {
+    background: rgba(40, 18, 18, 0.85);
+    border: 4px double #c9a441;
+    border-radius: 20px;
+    padding: 35px 40px;
+    max-height: 350px;
+    overflow-y: auto;
+    color: #f0e6d2;
+    box-shadow:
+        inset 0 0 20px #7a601a,
+        0 0 30px rgba(201, 164, 65, 0.5);
+    font-size: 1.25rem;
+    text-align: left;
+}
+
+/* Título ranking com relevo e borda fina */
+.ranking-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.4rem;
+    margin-bottom: 30px;
+    color: #d4af37;
+    letter-spacing: 4px;
+    text-shadow:
+        1px 1px 0 #7a601a,
+        2px 2px 0 #b3962a;
+}
+
+/* Lista ranking */
+.ranking-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.ranking-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(212, 175, 65, 0.3);
+    font-weight: 600;
+}
+
+.ranking-list li:last-child {
+    border-bottom: none;
+}

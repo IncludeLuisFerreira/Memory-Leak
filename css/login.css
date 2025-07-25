@@ -1,0 +1,204 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fundo retrô com padrão sutil */
+body {
+    background-color: #1c1c1c;
+    color: #e6d9c3;
+    font-family: 'Lora', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 4px 4px;
+}
+
+/* Container central */
+.container {
+    max-width: 700px;
+    width: 90%;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Moldura com borda decorativa */
+.frame {
+    border: 2px solid #e6d9c3;
+    padding: 40px;
+    position: relative;
+    background: rgba(28, 28, 28, 0.9);
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Cantos estilo Art Déco */
+.frame::before, .frame::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #e6d9c3;
+}
+
+.frame::before {
+    top: -10px;
+    left: -10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.frame::after {
+    bottom: -10px;
+    right: -10px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Títulos */
+.title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.description {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    color: #d4c4a8;
+}
+
+/* Botão Voltar */
+.back-btn {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.btn-back {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #e6d9c3;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.btn-back:hover {
+    border-color: #e6d9c3;
+}
+
+/* Botões principais */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: #e6d9c3;
+    padding: 12px 30px;
+    border: 2px solid #e6d9c3;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e6d9c3;
+    color: #1c1c1c;
+}
+
+/* Formulários */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #e6d9c3;
+    background: transparent;
+    color: #e6d9c3;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #d4b97b;
+}
+
+/* Botões do formulário */
+input[type="submit"],
+input[type="reset"] {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: #e6d9c3;
+    padding: 10px 20px;
+    border: 2px solid #e6d9c3;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background: #e6d9c3;
+    color: #1c1c1c;
+}
+
+/* Rodapé */
+footer {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #b8a98b;
+}
+
+/* Animação suave ao carregar */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}

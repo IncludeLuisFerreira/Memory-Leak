@@ -12,12 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Confirmar se o usuário colocou a mesma senha
     if ($senha_usuario !== $senha_usuario_confirmar) {
         // Voltar mensagem de erro para cadastro.html
-        $erro = urlencode("As senhas não coicidem");
+        $erro = urlencode("As senhas não coincidem");
         header("Location: ../cadastro.html?erro=$erro");
         exit;
     }
 
-    $sql_verifica = "SELECT id FROM Usuarios WHERE email=?";
+    $sql_verifica = "SELECT * FROM Usuarios WHERE email=?";
     $stmt_verifica = $conn->prepare($sql_verifica);
     
     if ($stmt_verifica) {
@@ -28,18 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt_verifica->num_rows > 0) {
             $erro = urlencode("E-mail já cadastrado.");
             header("Location: ../cadastro.html?erro=$erro");
+            exit;
         }
         $stmt_verifica->close();
     }
     else {
         $erro = urlencode("Erro ao preparar verificação de e-mail.");
-        header("Location: ../cadastro,html?erro=$erro");
+        header("Location: ../cadastro.html?erro=$erro");
         exit;
     }
     
     $senha_hash = password_hash($senha_usuario, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO Usuarios (nome, email, senha) VALUES(?, ?, ?)";
+    $sql = "INSERT INTO Usuarios (nome, email, senha_hash) VALUES(?, ?, ?)";
     $stmt = $conn->prepare($sql);
     
 
@@ -50,13 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             $_SESSION['id_usuario'] = $conn->insert_id;
             $_SESSION['nome_usuario'] = $nome_usuario;
-            header("Location: ../menu.php");
+            header("Location: menu.php");
             exit;
         }
         else {
-            $erro = urlencode("Erro ao cadastrar. Tente novamente.");
-            header("Location: ../cadastro.html?erro=$erro");
-            exit;        }
+            die("Erro no insert: ".$stmt->error);       
+        }
     }
     else {
         $erro = urlencode("Erro ao preparar o cadastro.");
@@ -65,3 +65,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
 }
+?>
