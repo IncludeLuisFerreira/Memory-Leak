@@ -3,14 +3,14 @@ const tabuleiro = document.querySelector('.tabuleiro');
 
 // Lista com as cartas (sem os pares duplicados ainda)
 const imagensBase = [
-    'img/cartas/freackle.png',
-    'img/cartas/mitzi.jpg',
-    'img/cartas/mordecai.png',
-    'img/cartas/nicomed.jpeg',
-    'img/cartas/pepper.png',
-    'img/cartas/rocky.jpg',
-    'img/cartas/serafine.jpg',
-    'img/cartas/viktor.png'
+    '../img/cartas/freackle.png',
+    '../img/cartas/mitzi.jpg',
+    '../img/cartas/mordecai.png',
+    '../img/cartas/nicomed.jpeg',
+    '../img/cartas/pepper.png',
+    '../img/cartas/rocky.jpg',
+    '../img/cartas/serafine.jpg',
+    '../img/cartas/viktor.png'
 ];
 
 // Duplica para criar pares
@@ -35,7 +35,7 @@ cartas.forEach(img => {
     carta.innerHTML = `
         <div class="carta-inner">
             <div class="frente"><img src="${img}" alt="Carta"></div>
-            <div class="verso"><img src="img/bkg.png" alt="Verso"></div>
+            <div class="verso"><img src="../img/cartas/verso.jpg" alt="Verso"></div>
         </div>
     `;
 
@@ -47,7 +47,94 @@ let primeiraCarta = null;
 let segundaCarta = null;
 let travar = false;
 
+let erros = 0;
+
+let tempoInicio = null;
+let timerInterval = null;
+let jogoIniciado = false;
+
+const startGameBtn = document.getElementById('startGameBtn');
+const timerDisplay = document.getElementById('timerDisplay');
+
+// Função para iniciar o cronômetro
+function iniciarCronometro() {
+    tempoInicio = Date.now();
+    timerInterval = setInterval(() => {
+        const tempoDecorrido = Math.floor((Date.now() - tempoInicio) / 1000);
+        timerDisplay.textContent = 'Tempo: ' + tempoDecorrido + ' segundos';
+    }, 1000);
+}
+
+// Função para parar o cronômetro
+function pararCronometro() {
+    clearInterval(timerInterval);
+    const tempoFinal = Math.floor((Date.now() - tempoInicio) / 1000);
+    return tempoFinal;
+}
+
+// Função para verificar se o jogo terminou
+function verificarFimDeJogo() {
+    const cartasViradas = document.querySelectorAll('.carta.flip').length;
+    if (cartasViradas === cartas.length) {
+        return true;
+    }
+    return false;
+}
+
+// Função para virar todas as cartas para mostrar a ordem
+function virarTodasCartas() {
+    const todasCartas = document.querySelectorAll('.carta');
+    todasCartas.forEach(carta => carta.classList.add('flip'));
+}
+
+// Função para desvirar todas as cartas
+function desvirarTodasCartas() {
+    const todasCartas = document.querySelectorAll('.carta');
+    todasCartas.forEach(carta => carta.classList.remove('flip'));
+}
+
+// Função para iniciar o jogo
+function iniciarJogo() {
+    if (jogoIniciado) return;
+    jogoIniciado = true;
+
+    // Esconde o botão de começar
+    startGameBtn.style.display = 'none';
+
+    // Rola a página para centralizar o tabuleiro
+    document.querySelector('.tabuleiro').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Mostra as cartas uma a uma com animação
+    const todasCartas = document.querySelectorAll('.carta');
+    let delay = 0;
+    todasCartas.forEach((carta, index) => {
+        setTimeout(() => {
+            carta.classList.add('flip');
+        }, delay);
+        delay += 150; // 100ms entre cada carta
+    });
+
+    // Depois de mostrar todas as cartas, desvira todas de uma vez
+    setTimeout(() => {
+        todasCartas.forEach(carta => carta.classList.remove('flip'));
+        iniciarCronometro();
+
+        // Trava o scroll da página
+        document.body.style.overflow = 'hidden';
+    }, delay + 500); // espera o tempo total de virar + 0.5s antes de desvirar
+}
+
+startGameBtn.addEventListener('click', iniciarJogo);
+
+const restartGameBtn = document.getElementById('restartGameBtn');
+restartGameBtn.addEventListener('click', () => {
+    // Reinicia o jogo recarregando a página
+    window.location.reload();
+});
+
 tabuleiro.addEventListener('click', e => {
+    if (!jogoIniciado) return;
+
     const carta = e.target.closest('.carta');
 
     // Verifica se clicou em uma carta válida
@@ -64,13 +151,79 @@ tabuleiro.addEventListener('click', e => {
         const img1 = primeiraCarta.querySelector('.frente img').src;
         const img2 = segundaCarta.querySelector('.frente img').src;
 
-        if (img1 === img2) {
-            // Cartas corretas: mantêm viradas
-            primeiraCarta = null;
-            segundaCarta = null;
-            travar = false;
-        } else {
-            // Cartas erradas: desvira depois de 1 segundo
+        console.log('Comparing cards:', img1, img2); // Debug log
+
+        // Envia requisição AJAX para o PHP comparar as cartas
+        fetch('../php/comparaCartas.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `img1=${encodeURIComponent(img1)}&img2=${encodeURIComponent(img2)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resposta do PHP:', data); // Debug log
+            if (data.match) {
+                // Cartas corretas: mantêm viradas
+                primeiraCarta = null;
+                segundaCarta = null;
+                travar = false;
+
+                // Verifica se o jogo terminou
+                    if (verificarFimDeJogo()) {
+                        const tempoFinal = pararCronometro();
+                        console.log('Jogo terminado em', tempoFinal, 'segundos');
+
+                        // Animação de fim de jogo
+                        const todasCartas = document.querySelectorAll('.carta');
+                        todasCartas.forEach(carta => carta.classList.add('fimDoJogo'));
+
+                        // Mostra tela de final
+                        const endGameScreen = document.getElementById('endGameScreen');
+                        const endGameTime = document.getElementById('endGameTime');
+                        const endGameErrors = document.getElementById('endGameErrors');
+                        endGameTime.textContent = 'Tempo: ' + tempoFinal + ' segundos';
+                        endGameErrors.textContent = 'Erros: ' + erros;
+                        endGameScreen.style.display = 'block';
+
+                        // Esconde o tabuleiro e outros elementos
+                        document.querySelector('.game-container').style.display = 'none';
+
+                        // Envia o tempo para o backend para salvar no banco
+                        // TODO: substituir usuario_id pelo valor correto
+                        const usuario_id = 1;
+
+                        fetch('../php/salvarPartida.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `usuario_id=${usuario_id}&tempo=${tempoFinal}&modo=1&vencedor=1&pontos=0`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Resultado do salvamento:', data);
+                        })
+                        .catch(error => {
+                            console.error('Erro ao salvar partida:', error);
+                        });
+                    }
+                } else {
+                    erros++;
+                    // Cartas erradas: desvira depois de 1 segundo
+                    setTimeout(() => {
+                        primeiraCarta.classList.remove('flip');
+                        segundaCarta.classList.remove('flip');
+                        primeiraCarta = null;
+                        segundaCarta = null;
+                        travar = false;
+                    }, 1000);
+                }
+        })
+        .catch(error => {
+            console.error('Erro na requisição:', error);
+            // Em caso de erro, desvira as cartas para evitar travamento
             setTimeout(() => {
                 primeiraCarta.classList.remove('flip');
                 segundaCarta.classList.remove('flip');
@@ -78,6 +231,6 @@ tabuleiro.addEventListener('click', e => {
                 segundaCarta = null;
                 travar = false;
             }, 1000);
-        }
+        });
     }
 });
