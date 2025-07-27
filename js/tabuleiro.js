@@ -190,16 +190,14 @@ tabuleiro.addEventListener('click', e => {
                         // Esconde o tabuleiro e outros elementos
                         document.querySelector('.game-container').style.display = 'none';
 
-                        // Envia o tempo para o backend para salvar no banco
-                        // TODO: substituir usuario_id pelo valor correto
-                        const usuario_id = 1;
+                        const pontos = 1000 - tempoFinal * 5 - erros * 2;
 
                         fetch('../php/salvarPartida.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
                             },
-                            body: `usuario_id=${usuario_id}&tempo=${tempoFinal}&modo=1&vencedor=1&pontos=0`
+                            body: `tempo=${tempoFinal}&modo=1&vencedor=1&pontos=${pontos}`
                         })
                         .then(response => response.json())
                         .then(data => {
@@ -208,6 +206,7 @@ tabuleiro.addEventListener('click', e => {
                         .catch(error => {
                             console.error('Erro ao salvar partida:', error);
                         });
+
                     }
                 } else {
                     erros++;

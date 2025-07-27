@@ -1,3 +1,5 @@
+/* Container for the 
+
 @font-face {
     font-family: 'ReachTheEnd';
     src: url('../font/Reach-the-End/ReachTheEnd.otf') format('opentype');
@@ -232,4 +234,52 @@ html, body {
 
 .ranking-list li:last-child {
     border-bottom: none;
+}
+
+
+
+/* Page title */
+.title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: #d4af37;
+    text-shadow:
+        1px 1px 0 #7a601a,
+        2px 2px 0 #b3962a;
+    margin: 0 0 20px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #c9a441;
+    text-align: center;
+}
+
+/* History table */
+.historico-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: #d4af37;
+}
+
+/* Table header and cells */
+.historico-table th, .historico-table td {
+    padding: 8px 12px;
+    text-align: center;
+    background: rgba(40, 18, 18, 0.85);
+    border: 2px solid #c9a441;
+    border-radius: 10px;
+}
+
+/* Table header */
+.historico-table th {
+    background: #7a601a;
+    color: #f0e6d2;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Table row hover effect */
+.historico-table tr {
+    transition: background-color 0.3s ease;
 }

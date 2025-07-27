@@ -19,6 +19,7 @@ $nome = $_SESSION['nome_usuario'];
     <!-- Fonte Art Déco e fonte para textos -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/historico.css">
 </head>
 <body>
     <div class="container">
@@ -27,6 +28,7 @@ $nome = $_SESSION['nome_usuario'];
         <div class="buttons">
             <a href="salaoJogo.php" class="btn">Jogar Sozinho</a>
             <a href="online.php" class="btn">Jogar Online</a>
+            <a href="historico.php" class="btn">Histórico de Partidas</a>
         </div>
 
         <div class="ranking">
@@ -34,6 +36,8 @@ $nome = $_SESSION['nome_usuario'];
             <ul class="ranking-list">
             </ul>
         </div>
+
     </div>
 </body>
+<script src="../js/ranking.js"></script>
 </html>
