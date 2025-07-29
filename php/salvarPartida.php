@@ -27,12 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Salvar as métricas para ranking(precisa terminar)
-    $sql = "INSERT INTO Ranking (usuario_id, total_partidas, vitorias, tempo_medio)
+    $sql_ranking = "INSERT INTO Ranking (usuario_id, total_partidas, vitorias, tempo_medio)
     VALUES (:id, 1, IF(:vencedor=1,1,0),:tempo)
     ON DUPLICATE KEY UPDATE
         total_partidas = total_partidas + 1,
         vitorias = vitorias + IF(:vencedor = 1, 1, 0),
         tempo_medio = ((tempo_medio * (total_partidas - 1)) + :tempo) / total_partidas";
+    
+    $stmt = $conn->prepare($sql_ranking);
+    $stmt->execute();
 
 
     $stmt->close();
