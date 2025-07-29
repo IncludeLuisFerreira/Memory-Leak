@@ -1,128 +1,84 @@
-/* Reset básico */
+/* Reset e Estilo Base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fundo retrô com padrão sutil */
+:root {
+    --gold: #D4AF37;
+    --dark-gold: #996515;
+    --black: #0A0A08;
+    --paper: #F5E7C1;
+    --red: #8B0000;
+}
+
 body {
-    background-color: #1c1c1c;
-    color: #e6d9c3;
+    background-color: var(--black);
+    color: var(--paper);
     font-family: 'Lora', serif;
+    height: 100vh;
+    overflow-x: hidden;
+    background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 4px 4px;
-    
+    align-items: flex-start;
+    padding: 20px;
 }
 
-/* Container central */
-.container {
-    max-width: 700px;
+/* Container principal */
+.cadastro-container {
     width: 90%;
-    padding: 30px;
-    text-align: center;
-}
-
-/* Moldura com borda decorativa */
-.frame {
-    border: 2px solid #e6d9c3;
+    max-width: 600px;
     padding: 40px;
+    margin: 40px auto;
+    background: linear-gradient(145deg, #1a1a1a 0%, #0A0A08 100%);
+    border: 12px double var(--gold);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
     position: relative;
-    background: rgba(28, 28, 28, 0.9);
-    box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 1.5s ease-in;
 }
 
-/* Cantos estilo Art Déco */
-.frame::before, .frame::after {
+/* Cantos decorativos */
+.cadastro-container::before,
+.cadastro-container::after {
     content: '';
     position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #e6d9c3;
+    width: 50px;
+    height: 50px;
+    border-color: var(--gold);
+    border-style: solid;
 }
 
-.frame::before {
+.cadastro-container::before {
     top: -10px;
     left: -10px;
-    border-right: none;
-    border-bottom: none;
+    border-width: 3px 0 0 3px;
 }
 
-.frame::after {
+.cadastro-container::after {
     bottom: -10px;
     right: -10px;
-    border-left: none;
-    border-top: none;
+    border-width: 0 3px 3px 0;
 }
 
-/* Títulos */
+
 .title {
-    font-family: 'Cinzel', serif;
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
-}
-
-.description {
-    font-size: 1.2rem;
+    font-family: 'Prohibition', sans-serif;
+    font-size: 2.5rem;
+    color: var(--gold);
     margin-bottom: 30px;
-    line-height: 1.6;
-    color: #d4c4a8;
+    letter-spacing: 3px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Botão Voltar */
-.back-btn {
-    text-align: left;
-    margin-bottom: 15px;
-}
-
-.btn-back {
-    text-decoration: none;
-    font-size: 1rem;
-    color: #e6d9c3;
-    border-bottom: 1px solid transparent;
-    transition: 0.3s;
-}
-
-.btn-back:hover {
-    border-color: #e6d9c3;
-}
-
-/* Botões principais */
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.btn {
-    text-decoration: none;
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    color: #e6d9c3;
-    padding: 12px 30px;
-    border: 2px solid #e6d9c3;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #e6d9c3;
-    color: #1c1c1c;
-}
-
-/* Formulários */
-.form {
+/* Formulário */
+.cadastro-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 .form-group {
@@ -131,75 +87,90 @@ body {
     text-align: left;
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 1rem;
+.form-group label {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--gold);
+    letter-spacing: 1px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 2px solid #e6d9c3;
+.form-group input {
     background: transparent;
-    color: #e6d9c3;
+    border: 2px solid var(--gold);
+    padding: 12px 15px;
+    color: var(--paper);
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1rem;
     outline: none;
-    transition: 0.3s;
+    transition: all 0.3s;
 }
 
-input:focus {
-    border-color: #d4b97b;
+.form-group input:focus {
+    border-color: var(--paper);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
-/* Botões do formulário */
-input[type="submit"],
-input[type="reset"] {
-    font-family: 'Cinzel', serif;
-    font-size: 1rem;
-    color: #e6d9c3;
-    padding: 10px 20px;
-    border: 2px solid #e6d9c3;
-    background: transparent;
+/* Botões */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 30px;
+    font-family: 'Prohibition', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    border: none;
 }
 
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-    background: #e6d9c3;
-    color: #1c1c1c;
+.btn-primary {
+    background: var(--gold);
+    color: var(--black);
+}
+
+.btn-primary:hover {
+    background: var(--dark-gold);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 2px solid var(--gold);
+}
+
+.btn-secondary:hover {
+    background: rgba(212, 175, 55, 0.1);
 }
 
 /* Rodapé */
-footer {
-    margin-top: 25px;
+.cadastro-footer {
+    margin-top: 30px;
     font-size: 0.9rem;
-    color: #b8a98b;
+    color: var(--paper);
+    text-align: center;
 }
 
-/* Animação suave ao carregar */
+.cadastro-footer a {
+    color: var(--red);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--red);
+    transition: all 0.3s;
+}
+
+.cadastro-footer a:hover {
+    border-bottom-style: solid;
+    color: var(--paper);
+}
+
+/* Animação de entrada */
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsividade */
-@media (max-width: 600px) {
-    .title {
-        font-size: 2rem;
-    }
 
-    .btn {
-        font-size: 1rem;
-        padding: 10px 20px;
-    }
-
-    input[type="submit"],
-    input[type="reset"] {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-    }
-}
