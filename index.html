@@ -5,26 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Leak</title>
     <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Prohibition&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="frame">
-            <h1 class="title">Memory Leak</h1>
-            <p class="description">
+    <!--Tela de aviso (pensei em deixar para avisar como se joga no online)-->
+    <div class="warning-screen" id="warningScreen">
+        <div class="warning-plaque">
+            <h2 class="warning-title">Como jogar no Online</h2>
+            <p class="warning-text">Digite seu nome.</p>
+            <p class="warning-text">Escolha uma sala.</p>
+            <p class="warning-text">Encontre todos os pares antes de seu oponente!</p>
+            <p class="warning-text">O jogador com mais pontos vence! BOA SORTE!!</p>
+            <button class="continue-btn" id="continueBtn">Continuar</button>
+        </div>
+    </div>
+
+    <!--Conteudo principal-->
+    <div class="main-content" id="mainContent">
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bottom-left"></div>
+        <div class="corner bottom-right"></div>
+
+        <div class="vinyl">
+            <div class="vinyl-center"></div>
+            <div class="vinyl-label-small">Memory<br>Leak</div>
+        </div>
+
+        <div class="speakeasy-poster fade-in">
+            <h1 class="poster-title">Memory Leak</h1>
+            <p class="poster-subtitle">
                 Bem-vindo ao <strong>Memory Leak</strong>, um jogo da memória online que desafia sua mente 
                 e reflexos! Cadastre-se, faça login e entre nesta experiência única.
             </p>
+            <p class="vinyl-label">Memory Leak • 2025
 
-            <div class="buttons">
-                <a href="login.html" class="btn">Login</a>
-                <a href="cadastro.html" class="btn">Cadastro</a>
+            <div class="menu">
+                <a href="login.html" class="menu-item">Login</a>
+                <a href="cadastro.html" class="menu-item">Cadastro</a>
             </div>
 
             <footer>
-                <p>&copy; 2025 Memory Leak — Todos os direitos reservados.</p>
+                <p class="footer">&copy; 2025 Memory Leak — Todos os direitos reservados.</p>
             </footer>
         </div>
     </div>
+    <script src="js/script.js"></script>
 </body>
 </html>

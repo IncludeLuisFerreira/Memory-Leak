@@ -4,49 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Memory Leak</title>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Prohibition&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/cadastro.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="frame">
-            <h1 class="title">Cadastro</h1>
-            <p class="description">
-                Crie sua conta para jogar <strong>Memory Leak</strong> e desafiar sua memória!
-            </p>
-
-            <!-- Botão Voltar -->
-            <div class="back-btn">
-                <a href="index.html" class="btn-back">← Voltar</a>
+    <div class="cadastro-container">
+        <h1 class="title">CADASTRO</h1>
+        
+        <form class="cadastro-form" action="#" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome" required>
             </div>
-
-            <form action="php/cadastro.php" method="post" class="form">
-                <div class="form-group">
-                    <label for="nome_usuario">Nome completo</label>
-                    <input type="text" name="nome_usuario" id="nome_usuario" required>
-                </div>
-                <div class="form-group">
-                    <label for="email_usuario">E-mail</label>
-                    <input type="email" name="email_usuario" id="email_usuario" required>
-                </div>
-                <div class="form-group">
-                    <label for="senha_usuario">Senha</label>
-                    <input type="password" name="senha_usuario" id="senha_usuario" required>
-                </div>
-                <div class="form-group">
-                    <label for="senha_usuario_confirmar">Confirme sua senha</label>
-                    <input type="password" name="senha_usuario_confirmar" id="senha_usuario_confirmar" required>
-                </div>
-
-                <div class="buttons">
-                    <input type="submit" value="Cadastrar" class="btn">
-                    <input type="reset" value="Limpar" class="btn">
-                </div>
-            </form>
-
-            <footer>
-                <p>&copy; 2025 Memory Leak — Todos os direitos reservados.</p>
-            </footer>
+            
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="usuario">Nome de Usuário</label>
+                <input type="text" id="usuario" name="usuario" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmar-senha">Confirmar Senha</label>
+                <input type="password" id="confirmar-senha" name="confirmar-senha" required>
+            </div>
+            
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="reset" class="btn btn-secondary">Limpar</button>
+            </div>
+        </form>
+        
+        <div class="cadastro-footer">
+            Já tem uma conta? <a href="login.html">Faça login</a>
         </div>
     </div>
 </body>

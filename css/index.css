@@ -1,102 +1,331 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/*Estilo base anos 1920*/
+:root{
+    --gold: #D4AF37;
+    --dark-gold: #993515;
+    --black: #0A0A08;
+    --paper: #F5E7C1;
+    --red: #8B0000;
 }
 
-/* Fundo com textura e cores vintage */
-body {
-    background-color: #1c1c1c;
-    color: #e6d9c3;
-    font-family: 'Lora', serif;
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'IM Fell English SC', serif;
+    background-color: var(--black);
+    color: var(--gold);
+    height: 100vh;
+    overflow: hidden;
+    background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+    position: relative;
+}
+
+/*Tela de aviso estilo placa de metal*/
+.warning-screen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 8, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 4px 4px;
+    z-index: 1000;
+    font-family: 'Prohibition', sans-serif;
 }
 
-/* Container central com bordas decorativas */
-.container {
-    max-width: 700px;
-    padding: 30px;
+.warning-plaque{
+    background: linear-gradient(135deg, #2a2a2a 0%, #0A0A08 100%);
+    border: 8px double var(--gold);
+    padding: 40px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    position: relative;
+    animation: plaque-float 4s ease-in-out infinite;
+}
+
+.warning-plaque::before{
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border: 2px solid var(--dark-gold);
+    pointer-events: none;
+    animation: border-pulse 3s infinite;
+}
+
+.warning-title{
+    font-size: 2.5rem;
+    color: var(--red);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 0 var(--black);
+}
+
+.warning-text{
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: var(--paper);
+}
+
+.continue-btn{
+    background: linear-gradient(to bottom, var(--gold), var(--dark-gold));
+    color: var(--black);
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Prohibition', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.continue-btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+}
+
+.continue-btn::after{
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(30deg);
+    transition: all 0.3s;
+}
+
+.continue-btn:hover::after{
+    left: 100%;
+}
+
+/* Conteúdo principal estilo cartaz */
+.main-content{
+    display: none;
+    height: 100vh;
+    background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+    position: relative;
+    overflow: hidden;
+}
+
+.speakeasy-poster{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    background: linear-gradient(145deg, #1a1a1a 0%, #0A0A08 100%);
+    border: 12px double var(--gold);
+    padding: 40px;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
     text-align: center;
 }
 
-.frame {
-    border: 2px solid #e6d9c3;
-    padding: 40px;
+.poster-title{
+    font-family: 'Prohibition', sans-serif;
+    font-size: 5rem;
+    color: var(--gold);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    text-shadow: 4px 4px 0 var(--black), 6px 6px 0 var(--dark-gold);
     position: relative;
-    background: rgba(28, 28, 28, 0.9);
-    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    animation: title-flicker 3s infinite alternate;
 }
 
-/* Cantos decorativos (Art Deco) */
-.frame::before, .frame::after {
-    content: '';
+.poster-subtitle{
+    font-size: 1.8rem;
+    color: var(--paper);
+    margin: 10px 0 30px;
+    letter-spacing: 5px;
+    position: relative;
+}
+
+.poster-subtitle::after{
+    content: "";
+    display: block;
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 20px auto;  
+}
+
+.vinyl-label{
+    font-size: 1.5rem;
+    color: var(--paper);
+    letter-spacing: 3px;
+    margin: 30px 0;
+    font-style: italic;
+}
+
+.menu{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.menu-item{
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'Prohibition', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 5px 15px;
+    transition: all 0.3s;
+}
+
+.menu-item:hover{
+    color: var(--paper);
+}
+
+.menu-item::before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+}
+
+.menu-item:hover::before{
+    width: 100%;
+}
+
+.footer{
+    font-size: 1.1rem;
+    color: var(--paper);
+    margin-top: 40px;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/*Decorações de borda */
+.corner{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-color: var(--gold);
+    border-style: solid;
+    border-width: 0;
+}
+
+.top-left{
+    top: 10px;
+    left: 10px;
+    border-top-width: 3px;
+    border-left-width: 3px;
+}
+
+.top-right{
+    top: 10px;
+    right: 10px;
+    border-top-width: 3px;
+    border-left-width: 3px;
+}
+
+.bottom-left{
+    bottom: 10px;
+    left: 10px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+}
+
+.bottom-right{
+    bottom: 10px;
+    right: 10px;
+    border-bottom-width: 3px;
+    border-right-width: 3px;
+}
+
+/*Animações*/
+@keyframes plaque-float{
+    0%, 100%{transform: translateY(0);}
+    50% {opacity: 1;}
+}
+
+@keyframes border-pulse{
+    0%, 100%{opacity: 0.5;}
+    50%{opacity: 1;}
+}
+
+@keyframes title-flicker{
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{
+        text-shadow: 4px 4px 0 var(--black), 6px 6px 0 
+        var(--dark-gold), 0 0 20px rgba(212, 175, 55, 0.7);
+    }
+    20%, 24%, 55%{
+        text-shadow: 4px 4px 0 var(--black), 6px 6px 0 
+        var(--dark-gold);
+    }
+}
+
+/*Efeito de transição*/
+.fade-in{
+    animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+/*Efeito de vinil girando*/
+.vinyl{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #333 0%, #000 70%);
+    border-radius: 50%;
+    border: 5px solid var(--dark-gold);
+    animation: spin 5s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vinyl-center{
+    width: 20px;
+    height: 20px;
+    background-color: var(--gold);
+    border-radius: 50%;
+    border: 3px solid var(--dark-gold);
+    z-index: 2;
+}
+
+.vinyl-label-small{
     position: absolute;
     width: 40px;
     height: 40px;
-    border: 2px solid #e6d9c3;
-}
-
-.frame::before {
-    top: -10px;
-    left: -10px;
-    border-right: none;
-    border-bottom: none;
-}
-
-.frame::after {
-    bottom: -10px;
-    right: -10px;
-    border-left: none;
-    border-top: none;
-}
-
-/* Título */
-.title {
-    font-family: 'Cinzel', serif;
-    font-size: 3rem;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
-}
-
-/* Texto */
-.description {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    line-height: 1.6;
-    color: #d4c4a8;
-}
-
-/* Botões estilizados */
-.buttons {
+    background-color: var(--paper);
+    border-radius: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    margin-bottom: 30px;
+    align-items: center;
+    font-size: 0.5rem;
+    color: var(--black);
+    text-align: center;
 }
 
-.btn {
-    text-decoration: none;
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    color: #e6d9c3;
-    padding: 12px 30px;
-    border: 2px solid #e6d9c3;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #e6d9c3;
-    color: #1c1c1c;
-}
-
-/* Rodapé */
-footer p {
-    font-size: 0.9rem;
-    color: #b8a98b;
+@keyframes spin{
+    from{transform: rotate(0deg);}
+    to{transform: rotate(300deg);}
 }
