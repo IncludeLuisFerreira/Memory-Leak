@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const warningScreen = document.getElementById('warningScreen');
     const mainContent = document.getElementById('mainContent');
     const continueBtn = document.getElementById('continueBtn');
+    let jazzMusic;
 
     // Debug: Verificar se os elementos foram encontrados
     console.log('Elementos:', { warningScreen, mainContent, continueBtn });
@@ -9,6 +10,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Esconder conteúdo principal inicialmente
     if (mainContent) mainContent.style.display = 'none';
     
+    // Pré-carregar a música
+    try {
+        jazzMusic = new Audio('../audio/cheerful-promenade-easy-going-electro-swing-composition-for-blogs-149595.mp3');
+        jazzMusic.loop = true;
+        jazzMusic.volume = 0.3;
+
+        // Verificar se a música está pronta para tocar
+        jazzMusic.addEventListener('canplaythrough', function() {
+            console.log('Música carregada e pronta para tocar.');
+        });
+    } catch (e) {
+        console.error('Erro ao carregar música:', e);
+    }
+
     // Verificar se o botão existe antes de adicionar o event listener
     if (continueBtn) {
         continueBtn.addEventListener('click', function() {
@@ -33,18 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 10);
                 }
                 
-                // Adicionar música de jazz (opcional)
-                try {
-                    const jazzMusic = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
-                    jazzMusic.loop = true;
-                    jazzMusic.volume = 0.3;
-                    
-                    document.addEventListener('click', function startMusic() {
-                        jazzMusic.play().catch(e => console.error('Erro ao reproduzir música:', e));
-                        document.removeEventListener('click', startMusic);
-                    }, { once: true });
-                } catch (e) {
-                    console.error('Erro ao carregar música:', e);
+                // Tocar música se estiver carregada
+                if (jazzMusic) {
+                    jazzMusic.play().catch(e => console.error('Erro ao reproduzir música:', e));
                 }
             }, 1000);
         });

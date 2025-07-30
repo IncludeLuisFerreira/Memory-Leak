@@ -1,0 +1,43 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'IM Fell English SC', serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    background-color: #222;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header h1 {
+    margin: 0;
+    font-family: 'Prohibition', cursive;
+    font-size: 1.8rem;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+nav a:hover, nav a:focus {
+    color: #ffcc00;
+}
+#contentFrame {
+    flex-grow: 1;
+    border: none;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: white;
+}
+audio {
+    display: none;
+}

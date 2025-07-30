@@ -27,6 +27,8 @@ if (!isset($_SESSION['id_usuario'])) {
         <button id="restartGameBtn">Jogar Novamente</button>
         <button id="backToMenuBtn">Voltar ao Menu</button>
     </div>
+
 </body>
 <script src="../js/tabuleiro.js"></script>
+<script src="../js/tocarSom.js"></script>
 </html>

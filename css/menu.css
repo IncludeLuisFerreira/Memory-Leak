@@ -195,14 +195,27 @@ html, body {
     border: 4px double #c9a441;
     border-radius: 20px;
     padding: 35px 40px;
-    max-height: 350px;
+    max-height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
     color: #f0e6d2;
-    box-shadow:
-        inset 0 0 20px #7a601a,
-        0 0 30px rgba(201, 164, 65, 0.5);
     font-size: 1.25rem;
     text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ranking-table th, .ranking-table td {
+    border: 1px solid #c9a441;
+    padding: 10px 15px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ranking-table td:last-child {
+    white-space: normal;
+    min-width: 80px;
 }
 
 /* Título ranking com relevo e borda fina */
@@ -212,9 +225,6 @@ html, body {
     margin-bottom: 30px;
     color: #d4af37;
     letter-spacing: 4px;
-    text-shadow:
-        1px 1px 0 #7a601a,
-        2px 2px 0 #b3962a;
 }
 
 /* Lista ranking */
@@ -232,4 +242,32 @@ html, body {
 
 .ranking-list li:last-child {
     border-bottom: none;
+}
+
+/* Ranking table styles */
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2rem;
+    color: #f0e6d2;
+}
+
+.ranking-table th, .ranking-table td {
+    border: 1px solid #c9a441;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.ranking-table th {
+    background-color: #281212;
+    color: #d4af37;
+}
+
+.ranking-table tr:nth-child(even) {
+    background-color: rgba(201, 164, 65, 0.1);
+}
+
+.ranking-table tr:hover {
+    background-color: rgba(201, 164, 65, 0.3);
+    cursor: default;
 }

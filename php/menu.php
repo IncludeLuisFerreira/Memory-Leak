@@ -33,8 +33,7 @@ $nome = $_SESSION['nome_usuario'];
 
         <div class="ranking">
             <h2 class="ranking-title">Placar de Ranking</h2>
-            <ul class="ranking-list">
-            </ul>
+            <div id="rankingContainer"></div>
         </div>
 
     </div>

@@ -185,6 +185,8 @@ input[type="password"] {
     color: #e6d9c3;
     outline: none;
     transition: 0.3s;
+    font-family: 'IM Fell English SC', serif !important;
+
 }
 
 /* Rodapé */

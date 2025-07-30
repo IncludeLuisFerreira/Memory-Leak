@@ -16,42 +16,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Clear previous content
+            rankingContainer.innerHTML = '';
+
+            // Create table
             const table = document.createElement('table');
             table.classList.add('ranking-table');
-            
-            const thead = document.createElement('thread');
-            thead.innerHTML = `
-                <tr>
-                    <th>Jogador</th>
-                    <th>Total de partidas</th>
-                    <th>Vitórias</th>
-                    <th>Porcentagem de vitória</th>
-                </tr>
-            `;
+
+            // Create header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            ['Jogador', 'Total de partidas', 'Vitórias', 'Porcentagem de vitória'].forEach(text => {
+                const th = document.createElement('th');
+                th.textContent = text;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
             table.appendChild(thead);
 
-            const tbody = document.createElement('thead');
-            
-            data.array.forEach(item => {
+            // Create body
+            const tbody = document.createElement('tbody');
+            data.forEach(item => {
                 const tr = document.createElement('tr');
-                
-                const porcentagem = (item.vitorias / item.total_partidas).toFixed(2);
-                
-                tr.innerHTML = `
-                    <td>${item.nome_jogador}</td>
-                    <td>${item.total_partidas}</td>
-                    <td>${item.vitorias}</td>
-                    <td>${porcentagem}</td>
-                `;
+
+                const porcentagem = item.total_partidas > 0 ? ((item.vitorias / item.total_partidas) * 100).toFixed(2) + '%' : '0%';
+
+                const cells = [
+                    item.nome,
+                    item.total_partidas,
+                    item.vitorias,
+                    porcentagem
+                ];
+
+                cells.forEach(cellText => {
+                    const td = document.createElement('td');
+                    td.textContent = cellText;
+                    tr.appendChild(td);
+                });
 
                 tbody.appendChild(tr);
             });
-
             table.appendChild(tbody);
+
             rankingContainer.appendChild(table);
         })
-        .catch(error => { 
+        .catch(error => {
             rankingContainer.innerHTML = '<p>Erro ao carregar ranking</p>';
-            console.error('Erro ao carregar ranking:', error)
+            console.error('Erro ao carregar ranking:', error);
         });
 });
