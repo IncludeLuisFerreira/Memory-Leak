@@ -22,16 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verifica a senha com password_verify
             if (password_verify($senha_usuario, $row['senha_hash'])) {
                 // Senha correta -> Inicia a sessão
+                $_SESSION['logado'] = true;
                 $_SESSION['id_usuario'] = $row['id'];
                 $_SESSION['nome_usuario'] = $row['nome'];
 
                 header("Location: menu.php");
                 exit;
             } else {
-                echo "Senha incorreta!";
+               header("Location: ../login.html?erro=senha");
+                exit;
             }
         } else {
-            echo "E-mail não encontrado!";
+            header("Location: ../login.html?erro=email");
         }
     } else {
         echo "Erro na preparação da consulta.";

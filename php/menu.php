@@ -25,6 +25,10 @@ $nome = $_SESSION['nome_usuario'];
     <div class="container">
         <h1 class="title">Bem-vindo, <?php echo htmlspecialchars($nome); ?></h1>
 
+        <div class="back-btn">
+            <a href="logout.php" class="btn-back">← Sair</a>
+        </div>
+
         <div class="buttons">
             <a href="salaoJogo.php" class="btn">Jogar Sozinho</a>
             <a href="online.php" class="btn">Jogar Online</a>

@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once 'config.php';
 session_start();
 
@@ -13,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($senha_usuario !== $senha_usuario_confirmar) {
         // Voltar mensagem de erro para cadastro.html
         $erro = urlencode("As senhas não coincidem");
-        header("Location: ../cadastro.html?erro=$erro");
+        $nome = urlencode($_POST['nome_usuario']);
+        $email = urlencode($_POST['email_usuario']);
+        header("Location: ../cadastro.html?erro=$erro&nome=$nome&email=$email");
         exit;
     }
 
@@ -27,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($stmt_verifica->num_rows > 0) {
             $erro = urlencode("E-mail já cadastrado.");
-            header("Location: ../cadastro.html?erro=$erro");
+            $nome = urlencode($_POST['nome_usuario']);
+            header("Location: ../cadastro.html?erro=$erro&nome=$nome");
             exit;
         }
         $stmt_verifica->close();
@@ -55,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
         else {
-            die("Erro no insert: ".$stmt->error);       
+            die("Erro no insert: ".$stmt->error);
         }
     }
     else {
@@ -63,6 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../cadastro.html?erro=$erro");
         exit;
     }
-    
 }
+
 ?>
