@@ -13,7 +13,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'json') {
    $sql = "SELECT u.nome, r.total_partidas, r.vitorias, r.tempo_medio
         FROM Ranking r
         JOIN Usuarios u ON u.id = r.usuario_id
-        ORDER BY r.vitorias DESC, r.tempo_medio ASC
+        ORDER BY r.tempo_medio DESC
         LIMIT 10;
     ";
    $stmt = $conn->prepare($sql);

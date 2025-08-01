@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create header
             const thead = document.createElement('thead');
             const headerRow = document.createElement('tr');
-            ['Jogador', 'Total de partidas', 'Vitórias', 'Porcentagem de vitória'].forEach(text => {
+            ['Jogador', 'Vitórias', 'Tempo médio', 'Porcentagem de vitória'].forEach(text => {
                 const th = document.createElement('th');
                 th.textContent = text;
                 headerRow.appendChild(th);
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const cells = [
                     item.nome,
-                    item.total_partidas,
                     item.vitorias,
+                    item.tempo_medio,
                     porcentagem
                 ];
 
