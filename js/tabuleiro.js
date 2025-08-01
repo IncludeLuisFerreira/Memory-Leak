@@ -58,10 +58,7 @@ const timerDisplay = document.getElementById('timerDisplay');
 
 // Função para iniciar o cronômetro
 function iniciarCronometro() {
-<<<<<<< Updated upstream
-=======
     if (tempoInicio) return; // evita reiniciar
->>>>>>> Stashed changes
     tempoInicio = Date.now();
     timerInterval = setInterval(() => {
         const tempoDecorrido = Math.floor((Date.now() - tempoInicio) / 1000);
@@ -152,11 +149,7 @@ tabuleiro.addEventListener('click', e => {
         const img1 = primeiraCarta.querySelector('.frente img').src;
         const img2 = segundaCarta.querySelector('.frente img').src;
 
-<<<<<<< Updated upstream
-        console.log('Comparing cards:', img1, img2); // Debug log
 
-=======
->>>>>>> Stashed changes
         // Envia requisição AJAX para o PHP comparar as cartas
         fetch('../php/comparaCartas.php', {
             method: 'POST',
