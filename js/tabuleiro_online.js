@@ -61,6 +61,19 @@ function criarCarta(cartaData, index) {
     return carta;
 }
 
+// ================== Placar ==================
+function atualizarPlacar() {
+    const placarJogador1 = document.getElementById('placarJogador1');
+    const placarJogador2 = document.getElementById('placarJogador2');
+    if (!placarJogador1 || !placarJogador2 || !estadoTabuleiro) return;
+
+    const paresJogador1 = estadoTabuleiro.pares_jogador1 || 0;
+    const paresJogador2 = estadoTabuleiro.pares_jogador2 || 0;
+
+    placarJogador1.textContent = `Jogador 1: ${paresJogador1} pares`;
+    placarJogador2.textContent = `Jogador 2: ${paresJogador2} pares`;
+}
+
 function renderizarTabuleiro() {
     if (!estadoTabuleiro || !estadoTabuleiro.cartas) return;
 
@@ -70,7 +83,9 @@ function renderizarTabuleiro() {
         estadoTabuleiro.cartas.forEach((carta, i) => {
             const cartaElem = tabuleiro.children[i];
             const cartaInner = cartaElem.querySelector('.carta-inner');
-            cartaInner.classList.toggle('flip', carta.virada || carta.par);
+            // Considera 'virada', 'par' e 'temporariamente_virada' para mostrar flip
+            const isFlipped = carta.virada || carta.par || carta.temporariamente_virada;
+            cartaInner.classList.toggle('flip', isFlipped);
             cartaInner.classList.toggle('matched', carta.par);
         });
     }
@@ -96,6 +111,7 @@ function atualizarEstado() {
 
             mostrarTurno();
             renderizarTabuleiro();
+            atualizarPlacar();
 
             if (statusPartida === 'jogando' && !countdownShown) {
                 countdownShown = true;
@@ -141,6 +157,7 @@ tabuleiro.addEventListener('click', e => {
     if (cartasViradasLocal.length === 2) return;
 
     cartasViradasLocal.push(index);
+    // Flip card locally immediately to provide instant feedback to the player
     carta.classList.add('flip');
 
     if (cartasViradasLocal.length === 2) {
@@ -152,17 +169,38 @@ tabuleiro.addEventListener('click', e => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.status === 'ok') {
-                    estadoTabuleiro = data.tabuleiro;
-                    turnoAtual = Number(data.turno);
-                    statusPartida = data.status_partida;
+            if (data.status === 'ok') {
+                turnoAtual = Number(data.turno);
+                statusPartida = data.status_partida;
 
-                    renderizarTabuleiro();
-                    mostrarTurno();
+                estadoTabuleiro = data.tabuleiro;
+                renderizarTabuleiro();
+                mostrarTurno();
+                atualizarPlacar();
 
-                    const i1 = cartasViradasLocal[0];
-                    const i2 = cartasViradasLocal[1];
-
+                if (!data.tabuleiro.cartas[cartasViradasLocal[0]].par && !data.tabuleiro.cartas[cartasViradasLocal[1]].par) {
+                    // Não é par, desvira as cartas depois de 1 segundo
+                    setTimeout(() => {
+                        // Remove a classe 'flip' para virar as cartas para trás
+                        cartasViradasLocal.forEach(i => {
+                            const c = tabuleiro.children[i].querySelector('.carta-inner');
+                            if (c) c.classList.remove('flip');
+                        });
+                        // Atualiza o estado local removendo temporariamente_virada
+                        cartasViradasLocal.forEach(i => {
+                            if (estadoTabuleiro.cartas[i]) {
+                                delete estadoTabuleiro.cartas[i].temporariamente_virada;
+                            }
+                        });
+                        // Libera o bloqueio para permitir novos cliques
+                        travar = false;
+                        // Limpa o array de cartas viradas localmente
+                        cartasViradasLocal = [];
+                        // Atualiza a renderização do tabuleiro
+                        renderizarTabuleiro();
+                    }, 1000);
+                } else {
+                    // Par encontrado ou jogo finalizado
                     if (statusPartida === 'finalizada') {
                         jogoFinalizado = true;
                         const tempoFinal = pararCronometro();
@@ -171,35 +209,15 @@ tabuleiro.addEventListener('click', e => {
                         endGameScreen.style.display = 'block';
                         tabuleiro.style.display = 'none';
                         pararPolling();
-                    } else {
-                        // Se não for par -> animação de erro e desvirar
-                        if (!data.tabuleiro.cartas[i1].par || !data.tabuleiro.cartas[i2].par) {
-                            erros++;
-                            const c1 = tabuleiro.children[i1].querySelector('.carta-inner');
-                            const c2 = tabuleiro.children[i2].querySelector('.carta-inner');
-                            if (c1) c1.classList.add('erro');
-                            if (c2) c2.classList.add('erro');
-
-                            setTimeout(() => {
-                                if (c1) {
-                                    c1.classList.remove('flip', 'erro');
-                                    estadoTabuleiro.cartas[i1].virada = false;
-                                }
-                                if (c2) {
-                                    c2.classList.remove('flip', 'erro');
-                                    estadoTabuleiro.cartas[i2].virada = false;
-                                }
-                                travar = false;
-                            }, 1000);
-                        } else {
-                            travar = false;
-                        }
                     }
-                } else {
-                    alert(data.mensagem || 'Erro ao jogar.');
                     travar = false;
+                    cartasViradasLocal = [];
                 }
+            } else {
+                alert(data.mensagem || 'Erro ao jogar.');
+                travar = false;
                 cartasViradasLocal = [];
+            }
             })
             .catch(err => {
                 console.error('Erro ao jogar:', err);
