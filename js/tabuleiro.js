@@ -58,6 +58,10 @@ const timerDisplay = document.getElementById('timerDisplay');
 
 // Função para iniciar o cronômetro
 function iniciarCronometro() {
+<<<<<<< Updated upstream
+=======
+    if (tempoInicio) return; // evita reiniciar
+>>>>>>> Stashed changes
     tempoInicio = Date.now();
     timerInterval = setInterval(() => {
         const tempoDecorrido = Math.floor((Date.now() - tempoInicio) / 1000);
@@ -75,10 +79,7 @@ function pararCronometro() {
 // Função para verificar se o jogo terminou
 function verificarFimDeJogo() {
     const cartasViradas = document.querySelectorAll('.carta.flip').length;
-    if (cartasViradas === cartas.length) {
-        return true;
-    }
-    return false;
+    return cartasViradas === cartas.length;
 }
 
 // Função para virar todas as cartas para mostrar a ordem
@@ -107,11 +108,11 @@ function iniciarJogo() {
     // Mostra as cartas uma a uma com animação
     const todasCartas = document.querySelectorAll('.carta');
     let delay = 0;
-    todasCartas.forEach((carta, index) => {
+    todasCartas.forEach((carta) => {
         setTimeout(() => {
             carta.classList.add('flip');
         }, delay);
-        delay += 150; // 100ms entre cada carta
+        delay += 150; // 150ms entre cada carta
     });
 
     // Depois de mostrar todas as cartas, desvira todas de uma vez
@@ -151,8 +152,11 @@ tabuleiro.addEventListener('click', e => {
         const img1 = primeiraCarta.querySelector('.frente img').src;
         const img2 = segundaCarta.querySelector('.frente img').src;
 
+<<<<<<< Updated upstream
         console.log('Comparing cards:', img1, img2); // Debug log
 
+=======
+>>>>>>> Stashed changes
         // Envia requisição AJAX para o PHP comparar as cartas
         fetch('../php/comparaCartas.php', {
             method: 'POST',
@@ -163,7 +167,6 @@ tabuleiro.addEventListener('click', e => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Resposta do PHP:', data); // Debug log
             if (data.match) {
                 // Cartas corretas: mantêm viradas
                 primeiraCarta = null;
@@ -171,54 +174,52 @@ tabuleiro.addEventListener('click', e => {
                 travar = false;
 
                 // Verifica se o jogo terminou
-                    if (verificarFimDeJogo()) {
-                        const tempoFinal = pararCronometro();
-                        console.log('Jogo terminado em', tempoFinal, 'segundos');
+                if (verificarFimDeJogo()) {
+                    const tempoFinal = pararCronometro();
 
-                        // Animação de fim de jogo
-                        const todasCartas = document.querySelectorAll('.carta');
-                        todasCartas.forEach(carta => carta.classList.add('fimDoJogo'));
+                    // Animação de fim de jogo
+                    const todasCartas = document.querySelectorAll('.carta');
+                    todasCartas.forEach(carta => carta.classList.add('fimDoJogo'));
 
-                        // Mostra tela de final
-                        const endGameScreen = document.getElementById('endGameScreen');
-                        const endGameTime = document.getElementById('endGameTime');
-                        const endGameErrors = document.getElementById('endGameErrors');
-                        endGameTime.textContent = 'Tempo: ' + tempoFinal + ' segundos';
-                        endGameErrors.textContent = 'Erros: ' + erros;
-                        endGameScreen.style.display = 'block';
+                    // Mostra tela de final
+                    const endGameScreen = document.getElementById('endGameScreen');
+                    const endGameTime = document.getElementById('endGameTime');
+                    const endGameErrors = document.getElementById('endGameErrors');
+                    endGameTime.textContent = 'Tempo: ' + tempoFinal + ' segundos';
+                    endGameErrors.textContent = 'Erros: ' + erros;
+                    endGameScreen.style.display = 'block';
 
-                        // Esconde o tabuleiro e outros elementos
-                        document.querySelector('.game-container').style.display = 'none';
+                    // Esconde o tabuleiro e outros elementos
+                    document.querySelector('.game-container').style.display = 'none';
 
-                        const pontos = 1000 - tempoFinal * 5 - erros * 2;
+                    const pontos = 1000 - tempoFinal * 5 - erros * 2;
 
-                        fetch('../php/salvarPartida.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: `tempo=${tempoFinal}&modo=1&vencedor=1&pontos=${pontos}`
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Resultado do salvamento:', data);
-                        })
-                        .catch(error => {
-                            console.error('Erro ao salvar partida:', error);
-                        });
-
-                    }
-                } else {
-                    erros++;
-                    // Cartas erradas: desvira depois de 1 segundo
-                    setTimeout(() => {
-                        primeiraCarta.classList.remove('flip');
-                        segundaCarta.classList.remove('flip');
-                        primeiraCarta = null;
-                        segundaCarta = null;
-                        travar = false;
-                    }, 1000);
+                    fetch('../php/salvarPartida.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `tempo=${tempoFinal}&modo=1&vencedor=1&pontos=${pontos}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Resultado do salvamento
+                    })
+                    .catch(error => {
+                        console.error('Erro ao salvar partida:', error);
+                    });
                 }
+            } else {
+                erros++;
+                // Cartas erradas: desvira depois de 1 segundo
+                setTimeout(() => {
+                    primeiraCarta.classList.remove('flip');
+                    segundaCarta.classList.remove('flip');
+                    primeiraCarta = null;
+                    segundaCarta = null;
+                    travar = false;
+                }, 1000);
+            }
         })
         .catch(error => {
             console.error('Erro na requisição:', error);
