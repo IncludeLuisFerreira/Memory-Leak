@@ -58,10 +58,11 @@ const timerDisplay = document.getElementById('timerDisplay');
 
 // Função para iniciar o cronômetro
 function iniciarCronometro() {
+if (tempoInicio) return; // evita reiniciar
     tempoInicio = Date.now();
     timerInterval = setInterval(() => {
         const tempoDecorrido = Math.floor((Date.now() - tempoInicio) / 1000);
-        timerDisplay.textContent = 'Tempo: ' + tempoDecorrido + ' segundos';
+        timerDisplay.textContent = 'Tempo: ' + tempoDecorrido + 's';
     }, 1000);
 }
 
@@ -89,10 +90,8 @@ function virarTodasCartas() {
 
 // Função para desvirar todas as cartas
 function desvirarTodasCartas() {
-    const todasCartas = document.querySelectorAll('.carta');
-    todasCartas.forEach(carta => carta.classList.remove('flip'));
+    document.querySelectorAll('.carta').forEach(c => c.classList.remove('flip'));
 }
-
 // Função para iniciar o jogo
 function iniciarJogo() {
     if (jogoIniciado) return;
@@ -133,6 +132,7 @@ restartGameBtn.addEventListener('click', () => {
 });
 
 tabuleiro.addEventListener('click', e => {
+    console.log("Carta clicada!");
     if (!jogoIniciado) return;
 
     const carta = e.target.closest('.carta');
@@ -151,7 +151,6 @@ tabuleiro.addEventListener('click', e => {
         const img1 = primeiraCarta.querySelector('.frente img').src;
         const img2 = segundaCarta.querySelector('.frente img').src;
 
-        console.log('Comparing cards:', img1, img2); // Debug log
 
         // Envia requisição AJAX para o PHP comparar as cartas
         fetch('../php/comparaCartas.php', {
