@@ -60,6 +60,10 @@ Modo 2 jogadores (Online):
 * Navegador moderno com JavaScript habilitado.
 ## Vídeo Explicativo
 *Colocar o link do vídeo aqui*
+
+##Link do site hospedado
+*[index.html](https://memoryleak.rf.gd/index.html)
+
 ## Autores
 
 * Professor:
