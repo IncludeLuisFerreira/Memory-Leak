@@ -61,8 +61,8 @@ Modo 2 jogadores (Online):
 ## Vídeo Explicativo
 *Colocar o link do vídeo aqui*
 
-##Link do site hospedado
-*[index.html](https://memoryleak.rf.gd/index.html)
+## Link do site hospedado
+* [index.html](https://memoryleak.rf.gd/index.html)
 
 ## Autores
 
