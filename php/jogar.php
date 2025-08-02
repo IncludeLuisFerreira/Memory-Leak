@@ -4,14 +4,6 @@ session_start();
 
 header('Content-Type: application/json');
 
-/**
- * Endpoint para processar a jogada do jogador.
- * Recebe JSON com:
- * - sala_id: ID da sala de jogo
- * - indices: array com dois índices das cartas selecionadas
- * Retorna JSON com o novo estado do tabuleiro, turno e status da partida.
- */
-
 if (!isset($_SESSION['id_usuario'])) {
     echo json_encode(['status' => 'erro', 'mensagem' => 'Usuário não está logado.']);
     exit;
@@ -59,7 +51,7 @@ if ($userId != $row['turno']) {
 
 $cartas = &$estado['cartas'];
 
-// Limpa flags 'temporariamente_virada' de jogadas anteriores para evitar cards travados virados
+// Limpa flags 'temporariamente_virada' de jogadas anteriores
 foreach ($cartas as &$carta) {
     if (isset($carta['temporariamente_virada'])) {
         unset($carta['temporariamente_virada']);
@@ -74,32 +66,34 @@ foreach ($indices as $indice) {
     }
 }
 
- // Virar as cartas clicadas (no backend, para manter controle)
+// Virar as cartas escolhidas para ambos os jogadores
 foreach ($indices as $indice) {
-    $cartas[$indice]['virada'] = true;
+    if ($cartas[$indice]['par']) continue;
+    $cartas[$indice]['temporariamente_virada'] = true;
 }
 
 // Verifica se é par
 $manter_turno = false;
 if ($cartas[$indices[0]]['id'] === $cartas[$indices[1]]['id']) {
-    // É par!
+    // Par: cartas ficam viradas permanentemente
     $cartas[$indices[0]]['par'] = true;
     $cartas[$indices[1]]['par'] = true;
+    unset($cartas[$indices[0]]['temporariamente_virada']);
+    unset($cartas[$indices[1]]['temporariamente_virada']);
     $manter_turno = true;
-
     if ($userId == $row['jogador1_id']) {
         $estado['pares_jogador1']++;
     } else {
         $estado['pares_jogador2']++;
     }
 } else {
-    // Não é par, mantém as cartas viradas temporariamente para animação no frontend
-    // Adiciona um campo 'temporariamente_virada' para controle frontend
-    $cartas[$indices[0]]['temporariamente_virada'] = true;
-    $cartas[$indices[1]]['temporariamente_virada'] = true;
+    // Não é par: cartas ficam viradas temporariamente para ambos os jogadores
+    // Elas serão desviradas pelo frontend após o timeout
+    // Adiciona um campo para indicar que precisam ser desviradas para todos
+    $estado['desvirar_indices'] = $indices;
 }
 
-// Define próximo turno
+// Próximo turno
 $proximo_turno = $manter_turno ? $userId : (($userId == $row['jogador1_id']) ? $row['jogador2_id'] : $row['jogador1_id']);
 
 // Verifica se o jogo acabou
@@ -123,6 +117,7 @@ if (!$stmt_up) {
 $stmt_up->bind_param("sisi", $novo_estado_json, $proximo_turno, $novo_status, $sala_id);
 $stmt_up->execute();
 
+// Retorna o estado atualizado para ambos os jogadores
 echo json_encode([
     'status' => 'ok',
     'tabuleiro' => $estado,
