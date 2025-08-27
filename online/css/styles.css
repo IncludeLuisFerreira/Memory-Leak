@@ -1,0 +1,134 @@
+/*Estilo basa */
+body{
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container{
+    max-width: 800px;
+    margin: 0;
+    padding: 20px;
+}
+
+.login-form input, .login-form select{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.login-form button{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.how-to-play{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*Sala de jogo */
+.game-container{
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.game-header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.players{
+    display: flex;
+    gap: 20px;
+}
+
+.player{
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.player.you{
+    background-color: #e3f2fd;
+}
+
+.player.opponent{
+    background-color: #ffebee;
+}
+
+.score{
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.game-board{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card{
+    height: 100px;
+    background-color: #2196F3;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.card.flipped{
+    background-color: white;
+    color: #333;
+    transform: rotateY(180deg);
+}
+
+.card.matched{
+    visibility: hidden;
+}
+
+.game-controls{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.game-controls button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#startGame{
+    background-color: #4CAF50;
+    color: white;
+}
+
+#leaveGame{
+    background-color: #f44336;
+    color: white;
+}
+

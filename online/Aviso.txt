@@ -1,0 +1,26 @@
+Não sei se vai ta funcionando... meu php ta dando problema.
+peguei o codigo do deepseek e o index é so um exemplo, não coloquei junto por segurança mesmo, preferi fazer outro (posso juntar tudo certinho depois).
+
+Como Executar o projeto:
+requisito: PHP7.4+, MySQL, Extensão sockets do php habilitada, composer(para instalar dependências).
+
+instalação:
+composer require cboden/ratchet
+
+banco de dados(colocando so pq sim)
+CREATE DATABASE jogo_memoria;
+USE jogo_memoria;
+
+CREATE TABLE game_results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    winner VARCHAR(50) NOT NULL,
+    loser VARCHAR(50) NOT NULL,
+    score INT NOT NULL,
+    played_at DATETIME NOT NULL
+);
+
+Executar servidor WebSocket
+php server.php
+
+Executar servidor Web
+php -S localhost:8000
