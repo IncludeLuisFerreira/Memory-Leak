@@ -2,6 +2,7 @@
 # Jogo da memória 
  Um tabuleiro do jogo da memória 4x4, com o tema inspirado na animação do Youtube *Lackadaisy*, que se passa em 1927, durante a Lei Seca nos Estados Unidos. O jogo oferece dois modos de jogo: 1 jogador e 2 jogadores.
 
+![img](https://i.imgur.com/6xU7OW2.png)
     
 ## Funcionalidades
 *Modo de Jogo*
@@ -21,6 +22,7 @@ Modo 2 jogadores (Online):
 * Timer por turno: tempo limite para selecionar as cartas;
 * Resultados salvos com pontuação e vencedor.
 
+![img](https://i.imgur.com/g99zcri.png)
 
 ## Tecnologias Utilizadas
 *Frontend*  
