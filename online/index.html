@@ -1,0 +1,39 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da memória ONline</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo da memória ONline</h1>
+
+        <div class="login-form">
+            <h2>Entrar no jogo</h2>
+            <form action="game.php" method="post">
+                <input type="text" name="username" placeholder="Seu nome" required>
+                <select name="room">
+                    <option value="random">Sala Aleatória</option>
+                    <option value="create">Criar nova sala</option>
+                </select>
+                <button type="submit">Jogar</button>
+            </form>
+        </div>
+
+        <div class="how-to-play">
+            <h2>Como jogar</h2>
+            <ol>
+                <li>Digite seu nome</li>
+                <li>Escolha uma sala</li>
+                <li>Encontre todos os pares antes do seu oponente</li>
+                <li>O jogador com mais ponto vence!</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
