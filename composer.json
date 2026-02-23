@@ -1,0 +1,20 @@
+{
+    "name": "jules/memory-leak",
+    "description": "Memory Leak Game",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jules",
+            "email": "jules@example.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    }
+}
